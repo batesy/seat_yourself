@@ -1,0 +1,45 @@
+<!-- <h1>Restaurants</h1>
+<% @restaurants.each do |r| %>
+  <div class="restaurant">
+    <h2><%= link_to "#{r.name}", "/restaurants/#{r.id}" %></h2>
+    <%= r.neighbourhood %> | <%= r.category.name %> | <%= r.price %>
+  </div>
+<% end %> -->
+<div id="wrapper">
+<h1>SeatYourself</h1>
+
+<div id="search_container">
+  <div id="category">
+  <h2>Find a Restaurant by Category</h2>
+  <%= form_tag(restaurants_path, method: "GET") do %>
+  <%= select_tag "category_choice", options_for_select(Category.all.collect { |c| [c.name, c.id]}) %>
+  <%= submit_tag "Find Restaurants" %>
+  <% end %>
+  </div>
+
+  <div id="neighbourhood">
+  <h2>Find a Restaurant by Neighbourhood</h2>
+  <%= form_tag(restaurants_path, method: "GET") do %>
+  <%= select_tag "neighbourhood_choice", options_for_select(Restaurant.all.collect { |r| [r.neighbourhood]}.uniq) %>
+  <%= submit_tag "Find Restaurants" %>
+  <% end %>
+  </div>
+</div>
+
+<div id="results">
+<% if params[:category_choice] %>
+<% result = Restaurant.find_all_by_category_id(params[:category_choice]) %>
+<% result.collect.each do |r| %>
+<%= link_to r.name, "/restaurants/#{r.id}" %> | <%= r.neighbourhood %> | <%= r.price %><br>
+<% end %>
+<% elsif params[:neighbourhood_choice] %>
+<% result = Restaurant.find_all_by_neighbourhood(params[:neighbourhood_choice]) %>
+<% result.collect.each do |r| %>
+<%= link_to r.name, "/restaurants/#{r.id}" %> | <%= r.category.name %> | <%= r.price %><br>
+<% end %>
+<% end %>
+</div>
+
+
+<h3><%= link_to "Add a Restaurant", new_restaurant_path %></h3>
+</div>

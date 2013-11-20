@@ -45,3 +45,6 @@ gem 'sorcery'
 
 # Use debugger
 gem 'debugger', group: [:development, :test]
+
+# Use Carrierwave for picture upload
+gem 'carrierwave'

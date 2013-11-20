@@ -3,6 +3,8 @@ class Restaurant < ActiveRecord::Base
   has_many :reservations
   has_many :users, through: :reservations
 
+  mount_uploader :avatar, AvatarUploader
+
   def start_time
     # return 11am (as a DateTime)
   end

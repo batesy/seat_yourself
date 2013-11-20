@@ -2,9 +2,6 @@ class RestaurantsController < ApplicationController
   def index
     @restaurants = Restaurant.all
 
-    # if params[:category_choice]
-    #   @category_array = Category.find(params[:category_choice]).restaurants
-    # end
   end
 
   def show
@@ -32,7 +29,7 @@ class RestaurantsController < ApplicationController
   def update
     @restaurant = Restaurant.find(params[:id])
     if @restaurant.update_attributes(restaurant_params)
-      redirect_to restaurants_path
+      redirect_to restaurant_path
     else
       render :edit
     end
@@ -40,6 +37,6 @@ class RestaurantsController < ApplicationController
 
   private
   def restaurant_params
-    params.require(:restaurant).permit(:name, :address, :neighbourhood, :category_id, :price, :capacity)
+    params.require(:restaurant).permit(:name, :address, :neighbourhood, :category_id, :price, :capacity, :avatar)
   end
 end
